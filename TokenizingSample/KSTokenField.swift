@@ -384,14 +384,6 @@ open class KSTokenField: UITextField {
                 tokenFieldDelegate?.tokenFieldShouldChangeHeight(tokensMaxY)
             }
         }
-        //SIL
-        /*if let frame = _selfFrame{
-         let tokensMaxY = max(_caretPoint!.y, frame.height)
-         
-         if (frame.size.height != tokensMaxY) {
-         tokenFieldDelegate?.tokenFieldShouldChangeHeight(tokensMaxY)
-         }
-         }*/
     }
     
     /**
@@ -436,9 +428,11 @@ open class KSTokenField: UITextField {
             }
         }
         
-        let textWidthWithPadding = KSUtils.widthOfString(text!, font: font!) + paddingX()!
+        
         //SIL
-        //let inputWidth = textWidthWithPadding > _minWidthForInput ? textWidthWithPadding : _minWidthForInput
+        //let textWidthWithPadding = KSUtils.widthOfString(text!, font: font!) + paddingX()!
+        //let inputWidth = max(textWidthWithPadding, _minWidthForInput)
+        
         // check if next token can be added in same line or new line
         if ((bounds.size.width) - (tokenPosition.x + _marginX!) - leftMargin < _minWidthForInput) {
             lineNumber += 1
@@ -487,6 +481,9 @@ open class KSTokenField: UITextField {
                 tokenPosition.x += tokenWidth + _marginX!;
             }
         }
+        //SIL
+        //let textWidthWithPadding = KSUtils.widthOfString(text!, font: font!) + paddingX()!
+        //let inputWidth = max(textWidthWithPadding, _minWidthForInput)
         
         let offsetWidth = ((tokenPosition.x + _marginX! + _leftViewRect().width) > (frame.width - _minWidthForInput)) ? _minWidthForInput : 0
         _scrollView.contentSize = CGSize(width: max(_scrollView.frame.width, tokenPosition.x + offsetWidth), height: frame.height)
@@ -625,8 +622,15 @@ open class KSTokenField: UITextField {
                 
             } else {
                 var title = KSTextEmpty
+                var currentTokenIndex = 1
                 for token: KSToken in tokens {
-                    title += "\(token.title)\(_separatorText!)"
+                    if currentTokenIndex == tokens.count - 1 {
+                        title += "\(token.title) and "
+                    } else {
+                        title += "\(token.title)\(_separatorText!)"
+                    }
+                    
+                    currentTokenIndex += 1
                 }
                 
                 if (title.characters.count > 0) {
@@ -635,10 +639,13 @@ open class KSTokenField: UITextField {
                 
                 let width = KSUtils.widthOfString(title, font: font!)
                 if width + _leftViewRect().width > bounds.width {
-                    text = "SEARCH ME and \(tokens.count) \(_descriptionText)"
+                    if tokens.count > 0 {
+                        text = "\(tokens.first!.title) and \(tokens.count - 1) \(_descriptionText)..."
+                    }
                 } else {
                     text = title
                 }
+             
             }
             break
         }

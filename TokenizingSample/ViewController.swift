@@ -18,9 +18,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let tokenView = KSTokenView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 30))
+        let tokenView = KSTokenView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 25))
         tokenView.delegate = self
-        tokenView.promptText = "    To: "
+        tokenView.promptText = "  To: "
         tokenView.placeholder = "Add Recipient"
         tokenView.descriptionText = "others"
         tokenView.maxTokenLimit = 1000
@@ -29,11 +29,18 @@ class ViewController: UIViewController {
         tokenView.paddingX = 10.0
         tokenView.minimumCharactersToSearch = 3
         tokenView.showSearchResultController = false
-        //tokenView.minWidthForInput = 120
+        tokenView.minWidthForInput = 100
+        tokenView.font = UIFont.systemFont(ofSize: 12)
+        tokenView.tokenizingCharacters = [","]
+        tokenView.placeholderColor = UIColor.lightGray
+        tokenView.cursorColor = addedRecipientColor
+        tokenView.textColor = addedRecipientColor
+        tokenView.backgroundColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1)
+        
         tokenView.layer.shadowColor = UIColor.black.cgColor
-        tokenView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        tokenView.layer.shadowOffset = CGSize(width: 0, height:1)
         tokenView.layer.shadowOpacity = 0.5
-        tokenView.layer.shadowRadius = 5
+        tokenView.layer.shadowRadius = 1
         tokenView.clipsToBounds = false
         
         view.addSubview(tokenView)
@@ -61,6 +68,7 @@ extension ViewController: KSTokenViewDelegate {
         token.tokenBackgroundHighlightedColor = toBeDeletedRecipientColor
         token.tokenBackgroundColor = addedRecipientColor
         token.tokenTextColor = UIColor.white
+        token.font = UIFont.systemFont(ofSize: 12)
         
         return token
     }

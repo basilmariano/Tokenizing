@@ -151,6 +151,13 @@ open class KSTokenView: UIView {
         }
     }
     
+    /// default is UIColor.grayColor()
+    open var textColor: UIColor = UIColor.black {
+        didSet {
+            _tokenField.textColor = textColor
+        }
+    }
+    
     /// Default is whiteColor
     override open var backgroundColor: UIColor? {
         didSet {
@@ -863,6 +870,9 @@ extension KSTokenView : UITextFieldDelegate {
                 if (selectedToken() != nil) {
                     deleteSelectedToken()
                     _tokenField.updateCaretVisiblity(_tokenField._scrollView)
+                    if (tokens()?.count == 0) {
+                        _tokenField.updateLayout()
+                    }
                 } else {
                     
                     _tokenField.selectToken(_lastToken()!)
@@ -931,6 +941,8 @@ extension KSTokenView : UITextFieldDelegate {
         //    _tokenField.scrollViewScrollToEnd()
         //}
       
+        
+        //_tokenField.updateLayout(false, willScrollToBottom: true)
         _tokenField.scrollViewScrollToEnd()
         
         return true

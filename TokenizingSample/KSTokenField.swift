@@ -1,26 +1,3 @@
-//
-//  KSTokenField.swift
-//  KSTokenView
-//
-//  Created by Khawar Shahzad on 01/01/2015.
-//  Copyright (c) 2015 Khawar Shahzad. All rights reserved.
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to
-//  deal in the Software without restriction, including without limitation the
-//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-//  sell copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-//  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-//  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-//  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import UIKit
 
@@ -432,7 +409,7 @@ open class KSTokenField: UITextField {
         //SIL
         let textWidthWithPadding = KSUtils.widthOfString(text!, font: font!) + paddingX()!
         let inputWidth = max(textWidthWithPadding, _minWidthForInput)
-        print (text!)
+        
         // check if next token can be added in same line or new line
         if ((bounds.size.width) - (tokenPosition.x + _marginX!) - leftMargin < inputWidth) {
             lineNumber += 1
@@ -467,9 +444,9 @@ open class KSTokenField: UITextField {
         //NOTE: y value is static, need to adjust depending on the cirrent TokenFieldView height
         if (lineNumber == 1) {
             let midOffset = CGPoint(x: 0, y: -(_scrollView.contentSize.height / 2))
+            print( self.frame)   
             _scrollView.setContentOffset(midOffset, animated: false)
-            self.backgroundColor = UIColor.yellow
-            cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: 40)
+            cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: self.frame.height - 10)
         }
         
         return cursorPoint
@@ -828,7 +805,6 @@ extension KSTokenField : UIScrollViewDelegate {
                 textColor = textColor!.withAlphaComponent(abs(percentage) - 1)
             }*/
         } else if (yVelocity > 0) { //Down
-            print("Down:: \(yVelocity)")
             
             let totalScroll = aScrollView.contentSize.height - aScrollView.bounds.size.height;
             
@@ -839,7 +815,7 @@ extension KSTokenField : UIScrollViewDelegate {
             let percentage = offset / totalScroll;
             
             /* When percentage = 0, the alpha should be 1 so we should flip the percentage. */
-            print(percentage - 1)
+            
             if percentage.isNormal {
                 textColor = textColor!.withAlphaComponent(percentage - 1)
             }

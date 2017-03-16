@@ -18,14 +18,14 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let tokenView = KSTokenView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 25))
+        let tokenView = KSTokenView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 50))
         tokenView.delegate = self
         tokenView.promptText = "  To: "
         tokenView.placeholder = "Add Recipient"
         tokenView.descriptionText = "others"
         tokenView.maxTokenLimit = 1000
         tokenView.style = .squared
-        tokenView.maximumHeight = 100.0
+        tokenView.maximumHeight = 120.0
         tokenView.paddingX = 10.0
         tokenView.minimumCharactersToSearch = 3
         tokenView.showSearchResultController = false

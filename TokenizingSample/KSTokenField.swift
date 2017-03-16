@@ -438,26 +438,40 @@ open class KSTokenField: UITextField {
             lineNumber += 1
             tokenPosition.x = _marginX!
             tokenPosition.y += (tokenHeight + _marginY!);
-            print(text!)
         }
         
         var positionY = (lineNumber == 1 && tokens.count == 0) ? _selfFrame!.size.height: (tokenPosition.y + tokenHeight + _marginY!)
+        
         _scrollView.contentSize = CGSize(width: _scrollView.frame.width, height: positionY)
+        
         if (positionY > maximumHeight) {
             positionY = maximumHeight
         } else {
             scrollViewScrollToEnd()
-            
-            
         }
         
-        _scrollView.frame.size = CGSize(width: _scrollView.frame.width, height: positionY)
+        //SIL it was this before
+        //_scrollView.frame.size = CGSize(width: _scrollView.frame.width, height: positionY)
         
+        let height = max(_minWidthForInput, positionY)
+        _scrollView.frame.size = CGSize(width: _scrollView.frame.width, height: height)
+  
         if (willScrollToBottom) {
             scrollViewScrollToEnd()
         }
         
-        return CGPoint(x: tokenPosition.x + leftMargin, y: positionY)
+        var cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: positionY)
+        
+        //Move to Center for 50 height if line number  is 1
+        //NOTE: y value is static, need to adjust depending on the cirrent TokenFieldView height
+        if (lineNumber == 1) {
+            let midOffset = CGPoint(x: 0, y: -(_scrollView.contentSize.height / 2))
+            _scrollView.setContentOffset(midOffset, animated: false)
+            self.backgroundColor = UIColor.yellow
+            cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: 40)
+        }
+        
+        return cursorPoint
     }
     
     
@@ -496,10 +510,13 @@ open class KSTokenField: UITextField {
      Scroll the tokens to end
      */
     func scrollViewScrollToEnd(_ animated: Bool = true) {
-        var bottomOffset: CGPoint
+        var bottomOffset: CGPoint = _scrollView.contentOffset
         switch _direction {
         case .vertical:
-            bottomOffset = CGPoint(x: 0, y: _scrollView.contentSize.height - _scrollView.bounds.height)
+            if (_scrollView.bounds.height < _scrollView.contentSize.height) {
+                bottomOffset = CGPoint(x: 0, y: _scrollView.contentSize.height - _scrollView.bounds.height)
+            }
+            
         case .horizontal:
             bottomOffset = CGPoint(x: _scrollView.contentSize.width - _scrollView.bounds.width, y: 0)
         }
@@ -510,9 +527,17 @@ open class KSTokenField: UITextField {
         var bottomOffset: CGPoint
         switch _direction {
         case .vertical:
-            bottomOffset = CGPoint(x: 0, y: _scrollView.contentSize.height - _scrollView.bounds.height)
+            if (_scrollView.bounds.height < _scrollView.contentSize.height) {
+                bottomOffset = CGPoint(x: 0, y: _scrollView.contentSize.height - _scrollView.bounds.height)
+                let diff = Float(_scrollView.contentOffset.y) - Float(bottomOffset.y)
+                return abs(diff) < 1
+                //return floorf(Float(_scrollView.contentOffset.y)) == floorf(Float(bottomOffset.y))
+            }
             
-            return ceilf(Float(_scrollView.contentOffset.y)) == ceilf(Float(bottomOffset.y))
+            return true
+           // bottomOffset = CGPoint(x: 0, y: _scrollView.contentSize.height - _scrollView.bounds.height)
+            
+            
             
         case .horizontal:
             bottomOffset = CGPoint(x: _scrollView.contentSize.width - _scrollView.bounds.width, y: 0)
@@ -666,12 +691,15 @@ open class KSTokenField: UITextField {
     fileprivate func _initPlaceholderLabel() {
         let xPos = _marginX!
         if (_placeholderLabel == nil) {
+            let cursorYPosition = _layoutTokens()
             _placeholderLabel = UILabel(frame: CGRect(x: xPos, y: leftView!.frame.origin.y, width: _selfFrame!.width - xPos - _leftViewRect().size.width, height: _leftViewRect().size.height))
             _placeholderLabel?.textColor = placeHolderColor
             _placeholderLabel?.font = _font
             _scrollView.addSubview(_placeholderLabel!)
         } else {
-            _placeholderLabel?.frame.origin.x = xPos
+            _placeholderLabel?.frame.origin.y = -7
+            //_placeholderLabel?.frame.origin.x = xPos
+            //_placeholderLabel?.frame.origin.x = xPos
         }
     }
     
@@ -789,10 +817,16 @@ extension KSTokenField : UIScrollViewDelegate {
             let scrollContentSizeHeight = aScrollView.contentSize.height;
             let scrollOffset = aScrollView.contentOffset.y;
             
+            if (_scrollView.bounds.height > scrollContentSizeHeight) {
+               showCaret()
+                return
+            }
+            
             if (scrollOffset + scrollViewHeight < scrollContentSizeHeight - 10) {
                 hideCaret()
                 
             } else if (scrollOffset + scrollViewHeight >= scrollContentSizeHeight - 5) {
+                
                 showCaret()
             }
             

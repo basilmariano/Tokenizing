@@ -430,11 +430,11 @@ open class KSTokenField: UITextField {
         
         
         //SIL
-        //let textWidthWithPadding = KSUtils.widthOfString(text!, font: font!) + paddingX()!
-        //let inputWidth = max(textWidthWithPadding, _minWidthForInput)
-        
+        let textWidthWithPadding = KSUtils.widthOfString(text!, font: font!) + paddingX()!
+        let inputWidth = max(textWidthWithPadding, _minWidthForInput)
+        print (text!)
         // check if next token can be added in same line or new line
-        if ((bounds.size.width) - (tokenPosition.x + _marginX!) - leftMargin < _minWidthForInput) {
+        if ((bounds.size.width) - (tokenPosition.x + _marginX!) - leftMargin < inputWidth) {
             lineNumber += 1
             tokenPosition.x = _marginX!
             tokenPosition.y += (tokenHeight + _marginY!);
@@ -447,7 +447,8 @@ open class KSTokenField: UITextField {
         if (positionY > maximumHeight) {
             positionY = maximumHeight
         } else {
-            scrollViewScrollToEnd()
+            //Not sure why i commented out
+            //scrollViewScrollToEnd()
         }
         
         //SIL it was this before
@@ -457,7 +458,7 @@ open class KSTokenField: UITextField {
         _scrollView.frame.size = CGSize(width: _scrollView.frame.width, height: height)
   
         if (willScrollToBottom) {
-            scrollViewScrollToEnd()
+            scrollViewScrollToEnd(false)
         }
         
         var cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: positionY)
@@ -520,7 +521,7 @@ open class KSTokenField: UITextField {
         case .horizontal:
             bottomOffset = CGPoint(x: _scrollView.contentSize.width - _scrollView.bounds.width, y: 0)
         }
-        _scrollView.setContentOffset(bottomOffset, animated: true)
+        _scrollView.setContentOffset(bottomOffset, animated: animated)
     }
     
     func scrollViewIsAtBottomOffest() -> Bool {
@@ -698,7 +699,7 @@ open class KSTokenField: UITextField {
             _scrollView.addSubview(_placeholderLabel!)
         } else {
             _placeholderLabel?.frame.origin.y = -7
-            //_placeholderLabel?.frame.origin.x = xPos
+            //SIL
             //_placeholderLabel?.frame.origin.x = xPos
         }
     }
@@ -799,13 +800,49 @@ extension KSTokenField : UIScrollViewDelegate {
     }
     
     public func scrollViewDidScroll(_ aScrollView: UIScrollView) {
-        if (_state == .opened) {
-            text = KSTextEmpty
-        }
+        //if (_state == .opened) {
+        //    text = KSTextEmpty
+        //}
+        /* This is the offset at the bottom of the scroll view. */
+        
         if (_direction == .horizontal) {
             aScrollView.contentOffset.y = 0
         } else {
             aScrollView.contentOffset.x = 0
+        }
+        
+        let yVelocity = aScrollView.panGestureRecognizer.velocity(in: aScrollView).y
+        if (yVelocity < 0) { //Up
+           /* print("Up:: \(yVelocity)")
+            let totalScroll = aScrollView.contentSize.height - aScrollView.bounds.size.height;
+            
+            /* This is the current offset. */
+            let offset = -aScrollView.contentOffset.y;
+            
+            /* This is the percentage of the current offset / bottom offset. */
+            let percentage = offset / totalScroll;
+            
+            /* When percentage = 0, the alpha should be 1 so we should flip the percentage. */
+            print(1 - abs(percentage))
+            if percentage.isNormal {
+                textColor = textColor!.withAlphaComponent(abs(percentage) - 1)
+            }*/
+        } else if (yVelocity > 0) { //Down
+            print("Down:: \(yVelocity)")
+            
+            let totalScroll = aScrollView.contentSize.height - aScrollView.bounds.size.height;
+            
+            /* This is the current offset. */
+            let offset = aScrollView.contentOffset.y;
+            
+            /* This is the percentage of the current offset / bottom offset. */
+            let percentage = offset / totalScroll;
+            
+            /* When percentage = 0, the alpha should be 1 so we should flip the percentage. */
+            print(percentage - 1)
+            if percentage.isNormal {
+                textColor = textColor!.withAlphaComponent(percentage - 1)
+            }
         }
         updateCaretVisiblity(aScrollView)
     }
@@ -817,16 +854,19 @@ extension KSTokenField : UIScrollViewDelegate {
             let scrollContentSizeHeight = aScrollView.contentSize.height;
             let scrollOffset = aScrollView.contentOffset.y;
             
-            if (_scrollView.bounds.height > scrollContentSizeHeight) {
+            if (_scrollView.bounds.height >= scrollContentSizeHeight) {
+                textColor = textColor!.withAlphaComponent(1)
                showCaret()
                 return
             }
             
-            if (scrollOffset + scrollViewHeight < scrollContentSizeHeight - 10) {
+            if (scrollOffset + scrollViewHeight < scrollContentSizeHeight - 5) {
+                //text = KSTextEmpty
+                textColor = textColor!.withAlphaComponent(0)
                 hideCaret()
                 
             } else if (scrollOffset + scrollViewHeight >= scrollContentSizeHeight - 5) {
-                
+                textColor = textColor!.withAlphaComponent(1)
                 showCaret()
             }
             

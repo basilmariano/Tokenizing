@@ -25,11 +25,11 @@ class ViewController: UIViewController {
         tokenView.descriptionText = "others"
         tokenView.maxTokenLimit = 1000
         tokenView.style = .squared
-        tokenView.maximumHeight = 120.0
+        tokenView.maximumHeight = 100.0
         tokenView.paddingX = 10.0
         tokenView.minimumCharactersToSearch = 3
         tokenView.showSearchResultController = false
-        tokenView.minWidthForInput = 100
+        tokenView.minWidthForInput = 50
         tokenView.font = UIFont.systemFont(ofSize: 12)
         tokenView.tokenizingCharacters = [","]
         tokenView.placeholderColor = UIColor.lightGray

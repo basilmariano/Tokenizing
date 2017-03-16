@@ -818,10 +818,21 @@ open class KSTokenView: UIView {
         delegate?.tokenView?(self, willChangeFrameWithX: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: fullHeight)
         self._repositionSearchResults(tokenFieldHeight)
         
+        //SIL REmoved the animation
+        /*self._tokenField.frame.size.height = tokenFieldHeight
+        self._tokenField._scrollView.frame.size = self._tokenField.bounds.size
+        self._tokenField.layoutSubviews()
+        self.frame.size.height = fullHeight
+        self._intrinsicContentHeight = fullHeight
+        self.invalidateIntrinsicContentSize()
+        self.superview?.layoutIfNeeded()
+        self.delegate?.tokenView?(self, didChangeFrameWithX: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.size.width, height: fullHeight)*/
         UIView.animate(
             withDuration: animateDuration,
             animations: {
                 self._tokenField.frame.size.height = tokenFieldHeight
+                self._tokenField._scrollView.frame.size = self._tokenField.bounds.size
+                self._tokenField.layoutSubviews()
                 self.frame.size.height = fullHeight
                 self._intrinsicContentHeight = fullHeight
                 self.invalidateIntrinsicContentSize()
@@ -887,8 +898,8 @@ extension KSTokenView : UITextFieldDelegate {
             return false
         }
         //SIL
-        if let lastToken = _lastToken() {
-            if lastToken.isSelected {
+        if let _ = _lastToken() {
+            if selectedToken() != nil {
                 _tokenField.deselectSelectedToken()
             }
         }
@@ -915,6 +926,9 @@ extension KSTokenView : UITextFieldDelegate {
             searchString = searchString.trimmingCharacters(in: CharacterSet.whitespaces)
             
         } else { // new character added
+            
+            //_tokenField.updateLayout(false, willScrollToBottom: true)
+            
             if (tokenizingCharacters.contains(string) && olderText != KSTextEmpty && olderTextTrimmed != "") {
                 addTokenWithTitle(olderTextTrimmed, tokenObject: nil)
                 _hideSearchResults()
@@ -924,11 +938,13 @@ extension KSTokenView : UITextFieldDelegate {
             if (searchString.characters.first == KSTextEmpty.characters.first) {
                 searchString = searchString.substring(from: searchString.characters.index(searchString.startIndex, offsetBy: 1))
             }
-            //layoutSubviews()
-            // _tokenField.updateLayout(false)
-            //_tokenField.tokenize()
+            
+            
+            _tokenField.updateLayout(false, willScrollToBottom: true)
+            layoutSubviews()
+
         }
-        
+        //_tokenField.updateLayout(false, willScrollToBottom: true)
         // Allow all other characters
         if (searchString.characters.count >= minimumCharactersToSearch && searchString != "\n") {
             _lastSearchString = searchString
@@ -942,7 +958,7 @@ extension KSTokenView : UITextFieldDelegate {
         //}
       
         
-        //_tokenField.updateLayout(false, willScrollToBottom: true)
+        
         _tokenField.scrollViewScrollToEnd()
         
         return true

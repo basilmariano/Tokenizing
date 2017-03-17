@@ -816,20 +816,7 @@ extension KSTokenField : UIScrollViewDelegate {
         
         let yVelocity = aScrollView.panGestureRecognizer.velocity(in: aScrollView).y
         if (yVelocity < 0) { //Up
-           /* print("Up:: \(yVelocity)")
-            let totalScroll = aScrollView.contentSize.height - aScrollView.bounds.size.height;
-            
-            /* This is the current offset. */
-            let offset = -aScrollView.contentOffset.y;
-            
-            /* This is the percentage of the current offset / bottom offset. */
-            let percentage = offset / totalScroll;
-            
-            /* When percentage = 0, the alpha should be 1 so we should flip the percentage. */
-            print(1 - abs(percentage))
-            if percentage.isNormal {
-                textColor = textColor!.withAlphaComponent(abs(percentage) - 1)
-            }*/
+           //No Op
         } else if (yVelocity > 0) { //Down
             
             let totalScroll = aScrollView.contentSize.height - aScrollView.bounds.size.height;

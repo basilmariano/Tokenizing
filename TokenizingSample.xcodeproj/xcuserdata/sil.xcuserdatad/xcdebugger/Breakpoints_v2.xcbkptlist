@@ -10,27 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenField.swift"
-            timestampString = "511429512.834259"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "820"
-            endingLineNumber = "820"
-            landmarkName = "scrollViewDidScroll(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TokenizingSample/KSTokenField.swift"
-            timestampString = "511429512.834259"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "834"
-            endingLineNumber = "834"
+            startingLineNumber = "821"
+            endingLineNumber = "821"
             landmarkName = "scrollViewDidScroll(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511416039.832798"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "798"
-            endingLineNumber = "798"
+            startingLineNumber = "804"
+            endingLineNumber = "804"
             landmarkName = "_changeHeight(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511431054.453953"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "877"
-            endingLineNumber = "877"
+            startingLineNumber = "886"
+            endingLineNumber = "886"
             landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511431054.453953"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "908"
-            endingLineNumber = "908"
+            startingLineNumber = "917"
+            endingLineNumber = "917"
             landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511431054.453953"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "926"
-            endingLineNumber = "926"
+            startingLineNumber = "935"
+            endingLineNumber = "935"
             landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511431054.453953"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "818"
-            endingLineNumber = "818"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
             landmarkName = "_changeHeight(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511431054.453953"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "823"
-            endingLineNumber = "823"
+            startingLineNumber = "832"
+            endingLineNumber = "832"
             landmarkName = "_changeHeight(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511425482.235941"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "726"
-            endingLineNumber = "726"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
             landmarkName = "_showSearchResults()"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511425485.889923"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "734"
-            endingLineNumber = "734"
+            startingLineNumber = "740"
+            endingLineNumber = "740"
             landmarkName = "_hideSearchResults()"
             landmarkType = "7">
             <Locations>
@@ -218,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenView.swift"
-            timestampString = "511431054.453953"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "846"
-            endingLineNumber = "846"
+            startingLineNumber = "855"
+            endingLineNumber = "855"
             landmarkName = "tokenFieldShouldChangeHeight(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenField.swift"
-            timestampString = "511430646.039761"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "861"
-            endingLineNumber = "861"
+            startingLineNumber = "848"
+            endingLineNumber = "848"
             landmarkName = "updateCaretVisiblity(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TokenizingSample/KSTokenField.swift"
-            timestampString = "511430647.117535"
+            timestampString = "511435730.090932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "867"
-            endingLineNumber = "867"
+            startingLineNumber = "854"
+            endingLineNumber = "854"
             landmarkName = "updateCaretVisiblity(_:)"
             landmarkType = "7">
          </BreakpointContent>

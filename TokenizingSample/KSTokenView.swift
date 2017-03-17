@@ -397,7 +397,13 @@ open class KSTokenView: UIView {
         
         _hideSearchResults()
         _intrinsicContentHeight = _tokenField.bounds.height
+        
+        let addButton = UIButton(frame: CGRect(x: frame.width - 33, y: frame.height / 2 - (25 / 2), width: 25, height: 25))
+        addButton.setImage(UIImage(named: "Plus"), for: .normal)
+        addSubview(addButton)
+        
         invalidateIntrinsicContentSize()
+    
     }
     
     //MARK: - Layout Changes
@@ -937,12 +943,6 @@ extension KSTokenView : UITextFieldDelegate {
         } else {
             _hideSearchResults()
         }
-        
-        //if (shouldScrollToEnd) {
-        //    _tokenField.scrollViewScrollToEnd()
-        //}
-      
-        
         
         _tokenField.scrollViewScrollToEnd()
         

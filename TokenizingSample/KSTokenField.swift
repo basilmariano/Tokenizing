@@ -437,7 +437,7 @@ open class KSTokenField: UITextField {
         
         let height = max(initialHeight, positionY)
         _scrollView.frame.size = CGSize(width: _scrollView.frame.width, height: height)
-        _scrollView.backgroundColor = UIColor.red
+        //_scrollView.backgroundColor = UIColor.red
         
         var cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: positionY)
         

@@ -902,6 +902,9 @@ extension KSTokenView : UITextFieldDelegate {
             searchString = first + second
             searchString = searchString.trimmingCharacters(in: CharacterSet.whitespaces)
             
+            _tokenField.updateLayout(false, willScrollToBottom: true)
+            layoutSubviews()
+            
         } else { // new character added
             
             //_tokenField.updateLayout(false, willScrollToBottom: true)

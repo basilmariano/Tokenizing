@@ -64,6 +64,8 @@ open class KSTokenField: UITextField {
     /// default is 120.0. After maximum limit is reached, tokens starts scrolling vertically
     var maximumHeight: CGFloat = 120.0
     
+    var initialHeight: CGFloat = 35.0
+    
     /// default is nil
     override open var placeholder: String? {
         get {
@@ -127,6 +129,7 @@ open class KSTokenField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        initialHeight = frame.size.height
         _setupTokenField()
     }
     
@@ -135,7 +138,8 @@ open class KSTokenField: UITextField {
     
     // MARK: - Setup
     fileprivate func _setupTokenField() {
-        text = ""
+        
+        
         autocorrectionType = UITextAutocorrectionType.no
         autocapitalizationType = UITextAutocapitalizationType.none
         contentVerticalAlignment = UIControlContentVerticalAlignment.top
@@ -411,15 +415,15 @@ open class KSTokenField: UITextField {
         let inputWidth = max(textWidthWithPadding, _minWidthForInput)
         
         // check if next token can be added in same line or new line
-        if ((bounds.size.width) - (tokenPosition.x + _marginX!) - leftMargin < inputWidth) {
+        if ((bounds.size.width) - ((tokenPosition.x + _marginX!) + leftMargin) < inputWidth) {
             lineNumber += 1
             tokenPosition.x = _marginX!
             tokenPosition.y += (tokenHeight + _marginY!);
         }
         
         var positionY = (lineNumber == 1 && tokens.count == 0) ? _selfFrame!.size.height: (tokenPosition.y + tokenHeight + _marginY!)
-        
-        _scrollView.contentSize = CGSize(width: _scrollView.frame.width, height: positionY)
+        let contentSizeHeight = max(initialHeight, positionY)
+        _scrollView.contentSize = CGSize(width: _scrollView.frame.width, height: contentSizeHeight)
         
         if (positionY > maximumHeight) {
             positionY = maximumHeight
@@ -431,22 +435,28 @@ open class KSTokenField: UITextField {
         //SIL it was this before
         //_scrollView.frame.size = CGSize(width: _scrollView.frame.width, height: positionY)
         
-        let height = max(_minWidthForInput, positionY)
+        let height = max(initialHeight, positionY)
         _scrollView.frame.size = CGSize(width: _scrollView.frame.width, height: height)
-  
-        if (willScrollToBottom) {
-            scrollViewScrollToEnd(false)
-        }
+        _scrollView.backgroundColor = UIColor.red
         
         var cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: positionY)
         
         //Move to Center for 50 height if line number  is 1
         //NOTE: y value is static, need to adjust depending on the cirrent TokenFieldView height
         if (lineNumber == 1) {
-            let midOffset = CGPoint(x: 0, y: -(_scrollView.contentSize.height / 2))
-            print( self.frame)   
+            
+            let midOffset = CGPoint(x: 0, y: -(initialHeight / 2 - (tokenHeight - 4)))
+            print( midOffset)
+            let cursorY = (((initialHeight / (positionY + _marginY!)) / 2) * (positionY + _marginY!)) +  positionY / 2
+            //let corsorY = ((_scrollView.frame.height / tokenHeight) / 2) * (tokenHeight + _marginY!)
             _scrollView.setContentOffset(midOffset, animated: false)
-            cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: self.frame.height - 10)
+            cursorPoint = CGPoint(x: tokenPosition.x + leftMargin, y: cursorY)
+        }
+        
+        //_selfFrame = _scrollView.frame
+        if (willScrollToBottom) {
+            scrollViewScrollToEnd(false)
+            updateCaretVisiblity(_scrollView)
         }
         
         return cursorPoint
@@ -675,7 +685,23 @@ open class KSTokenField: UITextField {
             _placeholderLabel?.font = _font
             _scrollView.addSubview(_placeholderLabel!)
         } else {
-            _placeholderLabel?.frame.origin.y = -7
+            /*var label = leftView
+            if !(label is UILabel) {
+                label = UILabel(frame: .zero)
+                label?.frame.origin.x += _marginX!
+                leftViewMode = .always
+            }
+            
+            if let label = label {
+                _placeholderLabel?.frame.origin.y = label.frame.origin.y - _marginX!
+            }*/
+            
+            let tokenHeight = _font!.lineHeight + _paddingY!;
+            
+            let midOffset = CGPoint(x: 0, y: initialHeight / 2)
+            print( midOffset)
+            _placeholderLabel?.frame.origin.y = _placeholderLabel!.frame.size.height / 2 - 2
+            //_placeholderLabel?.frame.origin.y = -7
             //SIL
             //_placeholderLabel?.frame.origin.x = xPos
         }

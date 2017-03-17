@@ -18,14 +18,14 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let tokenView = KSTokenView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 50))
+        let tokenView = KSTokenView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 35))
         tokenView.delegate = self
         tokenView.promptText = "  To: "
         tokenView.placeholder = "Add Recipient"
         tokenView.descriptionText = "others"
         tokenView.maxTokenLimit = 1000
         tokenView.style = .squared
-        tokenView.maximumHeight = 100.0
+        tokenView.maximumHeight = 80.0
         tokenView.paddingX = 10.0
         tokenView.minimumCharactersToSearch = 3
         tokenView.showSearchResultController = false
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         tokenView.placeholderColor = UIColor.lightGray
         tokenView.cursorColor = addedRecipientColor
         tokenView.textColor = addedRecipientColor
-        tokenView.backgroundColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1)
+        tokenView.backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
         
         tokenView.layer.shadowColor = UIColor.black.cgColor
         tokenView.layer.shadowOffset = CGSize(width: 0, height:1)

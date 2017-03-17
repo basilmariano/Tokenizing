@@ -373,6 +373,7 @@ open class KSTokenView: UIView {
     //
     
     fileprivate func _commonSetup() {
+        
         backgroundColor = UIColor.clear
         clipsToBounds = true
         _tokenField = KSTokenField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
@@ -796,15 +797,19 @@ open class KSTokenView: UIView {
         self._repositionSearchResults(tokenFieldHeight)
         
         //SIL REmoved the animation
-        /*self._tokenField.frame.size.height = tokenFieldHeight
+        self._tokenField.frame.size.height = tokenFieldHeight
         self._tokenField._scrollView.frame.size = self._tokenField.bounds.size
         self._tokenField.layoutSubviews()
         self.frame.size.height = fullHeight
         self._intrinsicContentHeight = fullHeight
         self.invalidateIntrinsicContentSize()
         self.superview?.layoutIfNeeded()
-        self.delegate?.tokenView?(self, didChangeFrameWithX: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.size.width, height: fullHeight)*/
-        UIView.animate(
+        self.delegate?.tokenView?(self, didChangeFrameWithX: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.size.width, height: fullHeight)
+        
+        //TODO: need to fix this soon
+        //Added this to fix issue when suddenly cursor is beigng hidded
+        self._tokenField.updateLayout(false, willScrollToBottom: false)
+        /*UIView.animate(
             withDuration: animateDuration,
             animations: {
                 self._tokenField.frame.size.height = tokenFieldHeight
@@ -820,7 +825,7 @@ open class KSTokenView: UIView {
                 if (completed) {
                     self.delegate?.tokenView?(self, didChangeFrameWithX: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.size.width, height: fullHeight)
                 }
-        })
+        })*/
     }
     
     //MARK: - Memory Mangement

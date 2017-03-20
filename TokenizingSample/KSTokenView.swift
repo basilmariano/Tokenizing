@@ -60,6 +60,8 @@ import UIKit
     
     @objc optional func tokenViewDidShowSearchResults(_ tokenView: KSTokenView)
     @objc optional func tokenViewDidHideSearchResults(_ tokenView: KSTokenView)
+    
+    @objc optional func tokenViewDidTapAddButton(_ tokenView: KSTokenView)
 }
 
 //MARK: - KSTokenView
@@ -376,7 +378,7 @@ open class KSTokenView: UIView {
         
         backgroundColor = UIColor.clear
         clipsToBounds = true
-        _tokenField = KSTokenField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
+        _tokenField = KSTokenField(frame: CGRect(x: 0, y: 0, width: self.bounds.width - 33, height: self.bounds.height))
         _tokenField.textColor = UIColor.black
         _tokenField.isEnabled = true
         _tokenField.tokenFieldDelegate = self
@@ -400,6 +402,7 @@ open class KSTokenView: UIView {
         
         let addButton = UIButton(frame: CGRect(x: frame.width - 33, y: frame.height / 2 - (25 / 2), width: 25, height: 25))
         addButton.setImage(UIImage(named: "Plus"), for: .normal)
+        addButton.addTarget(self, action: #selector(didTapAddButton(_:)), for: .touchUpInside)
         addSubview(addButton)
         
         invalidateIntrinsicContentSize()
@@ -483,7 +486,9 @@ open class KSTokenView: UIView {
         return true
     }
     
-    
+    @objc private func didTapAddButton(_ sender: UIButton) {
+        delegate?.tokenViewDidTapAddButton!(self)
+    }
     /**
      Returns an Array of KSToken objects
      

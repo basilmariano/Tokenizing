@@ -72,4 +72,8 @@ extension ViewController: KSTokenViewDelegate {
         
         return token
     }
+    
+    func tokenViewDidTapAddButton(_ tokenView: KSTokenView) {
+        print( (#function))
+    }
 }

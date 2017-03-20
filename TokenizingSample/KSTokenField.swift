@@ -679,29 +679,16 @@ open class KSTokenField: UITextField {
     fileprivate func _initPlaceholderLabel() {
         let xPos = _marginX!
         if (_placeholderLabel == nil) {
-            let cursorYPosition = _layoutTokens()
             _placeholderLabel = UILabel(frame: CGRect(x: xPos, y: leftView!.frame.origin.y, width: _selfFrame!.width - xPos - _leftViewRect().size.width, height: _leftViewRect().size.height))
             _placeholderLabel?.textColor = placeHolderColor
             _placeholderLabel?.font = _font
             _scrollView.addSubview(_placeholderLabel!)
         } else {
-            /*var label = leftView
-            if !(label is UILabel) {
-                label = UILabel(frame: .zero)
-                label?.frame.origin.x += _marginX!
-                leftViewMode = .always
-            }
-            
-            if let label = label {
-                _placeholderLabel?.frame.origin.y = label.frame.origin.y - _marginX!
-            }*/
-            
-            let tokenHeight = _font!.lineHeight + _paddingY!;
-            
+           
             let midOffset = CGPoint(x: 0, y: initialHeight / 2)
             print( midOffset)
             _placeholderLabel?.frame.origin.y = _placeholderLabel!.frame.size.height / 2 - 2
-            //_placeholderLabel?.frame.origin.y = -7
+            
             //SIL
             //_placeholderLabel?.frame.origin.x = xPos
         }
